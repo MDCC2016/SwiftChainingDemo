@@ -7,3 +7,29 @@
 //
 
 import Foundation
+
+extension StringProxy {
+    var selfValue: String {
+        return value
+    }
+}
+
+
+struct StringProxy {
+    fileprivate let value: String
+    init(_ value: String) {
+        self.value = value
+    }
+}
+
+extension String: NamespaceCompatible {
+    typealias CompatibleType = StringProxy
+    var ccf: CompatibleType {
+        return StringProxy(self)
+    }
+
+    static var ccf: CompatibleType.Type {
+        return StringProxy.self
+    }
+}
+
